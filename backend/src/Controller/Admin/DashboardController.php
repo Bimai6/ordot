@@ -2,6 +2,14 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
+use App\Entity\Customer;
+use App\Entity\Media;
+use App\Entity\Order;
+use App\Entity\OrderProduct;
+use App\Entity\Product;
+use App\Entity\Store;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -45,5 +53,24 @@ class DashboardController extends AbstractDashboardController
         return Dashboard::new()
             ->setTitle('Ordot')
             ->setTranslationDomain('admin');
+    }
+
+    public function configureMenuItems(): iterable
+    {
+        return [
+            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+
+            MenuItem::section('User'),
+            MenuItem::linkToCrud('User', 'fa fa-user', User::class),
+
+            MenuItem::section('Store'),
+            MenuItem::linkToCrud('Store', 'fa fa-store', Store::class),                     
+            MenuItem::linkToCrud('Products', 'fa fa-box-open', Product::class),            
+            MenuItem::linkToCrud('Categories', 'fa fa-tags', Category::class),            
+            MenuItem::linkToCrud('Orders', 'fa fa-shopping-cart', Order::class),          
+            MenuItem::linkToCrud('Media', 'fa fa-photo-video', Media::class),             
+            MenuItem::linkToCrud('Customer', 'fa fa-user-friends', Customer::class),       
+            MenuItem::linkToCrud('OrderProducts', 'fa fa-clipboard-list', OrderProduct::class),
+        ];
     }
 }
